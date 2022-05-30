@@ -3,6 +3,7 @@ package com.duberlyguarnizo.server_manager_backend.controller;
 import com.duberlyguarnizo.server_manager_backend.model.HttpResponse;
 import com.duberlyguarnizo.server_manager_backend.model.Server;
 import com.duberlyguarnizo.server_manager_backend.service.implementation.ServerServiceImplementation;
+import com.sun.xml.bind.v2.TODO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,7 @@ public class ServerController {
         );
     }
 
+    // TODO: Fix error message when server IP is not found
     @GetMapping("/ping/{ipAddress}")
     public ResponseEntity<HttpResponse> pingServer(@PathVariable("ipAddress") String ipAddress) throws IOException {
         Server server = service.ping(ipAddress);
@@ -64,6 +66,7 @@ public class ServerController {
         );
     }
 
+    //TODO: Fix getting when id is not found
     @GetMapping("/get/{id}")
     public ResponseEntity<HttpResponse> getServer(@PathVariable("id") Long id) {
         return ResponseEntity.ok(HttpResponse.builder()
@@ -89,10 +92,9 @@ public class ServerController {
                 .build()
         );
     }
-    //TODO: Add method to manage update of server
 
     @GetMapping(path = "/image/{fileName}", produces = IMAGE_PNG_VALUE)
     public byte[] getServerImage(@PathVariable("fileName") String fileName) throws IOException {
-        return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "Downloads/images" + fileName));
+        return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "/Downloads/images" + fileName));
     }
 }
